@@ -5,10 +5,10 @@
         <th>学号</th>
         <th>姓名</th>
         <th>性别</th>
-        <th>邮箱</th>
         <th>年龄</th>
-        <th>手机号</th>
-        <th>住址</th>
+        <th>联系方式</th>
+        <th>家庭住址</th>
+        <th>报名日期</th>
         <th>操作</th>
       </tr>
     </thead>
@@ -19,14 +19,15 @@
         >
             <td>{{ stu.sNo }}</td>
             <td>{{ stu.name }}</td>
-            <td>{{ stu.sex ? "女" : "男" }}</td>
-            <td>{{ stu.email }}</td>
+            <td>{{ stu.sex ? "男" : "女" }}</td>
             <td>{{ age(stu.birth) }}</td>
             <td>{{ stu.phone }}</td>
             <td>{{ stu.address }}</td>
+            <td>{{ date(stu.date) }}</td>
             <td>
-                <button class="btn edit">编辑</button>
-                <button class="btn del">删除</button>
+                <button class="btn edit" @click="editStu(stu)">编辑</button>
+                &nbsp;
+                <button class="btn del" @click="delStu(stu.sNo)">删除</button>
             </td>
         </tr>
     </tbody>
@@ -34,7 +35,8 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import moment from 'moment';
+import { mapState, mapActions, mapMutations } from 'vuex';
 export default {
     created () {
         // this.$store.dispatch('getStuList');
@@ -45,9 +47,22 @@ export default {
     },
     methods: {
         age(birth) {
-            return new Date().getFullYear() - birth;
+            return new Date().getFullYear() - new Date(birth).getFullYear();
         },
-        ...mapActions(['getStuList'])
+        date(d) {
+            const data = moment(d).format('YYYY-MM-DD');
+            return data;
+        },
+        editStu(stu) {
+            this.setShowModal(true);
+            this.setEditStu(stu);
+        },
+        delStu(sno) {
+            const isDel = confirm(`确认删除学号为${sno}的学生吗？`);
+            isDel ? this.$store.dispatch("detStu", sno) : '';
+        },
+        ...mapActions(['getStuList']),
+        ...mapMutations(["setShowModal", "setEditStu"])
     }
 };
 </script>

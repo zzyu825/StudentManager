@@ -3,6 +3,7 @@ import Echarts from '../echarts';
 
 Vue.directive('echarts', {
     bind(el, { value, arg }) {
+        console.log(value,arg)
         const echarts = new Echarts({
             pieObj: {
                 dom: el,

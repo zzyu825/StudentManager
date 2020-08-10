@@ -361,7 +361,7 @@ input,button{
 }
 .modal .modal-content{
     background-color: #fff;
-    padding:60px 60px 30px 60px;
+    padding: 30px;
     border-radius: 10px;
     z-index: 10;
 }
@@ -492,11 +492,19 @@ input,button{
    text-align: center;
 }
 .tab-content-item.s-add form{
+    padding: 30px;
     display: inline-block;
     margin-top:30px;
 }
 .tab-content-item.s-add form .item{
     margin:10px 0;
+}
+
+.tab-content-item.s-add form label{
+    display: inline-block;
+    width:70px;
+    font-size:1rem;
+    text-align: right;
 }
 
 .tab-content-item.s-add form .item input{

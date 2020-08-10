@@ -3,13 +3,33 @@
     <label for="search-inp">
       搜索：
     </label>
-    <input type="text" placeholder="请输入学号" class="inp" id="search-inp" />
-    <button class="search-btn" id="search-btn">搜索</button>
+    <input
+      type="text"
+      class="inp"
+      id="search-inp"
+      :value="searchValue"
+      @input="insert($event)"
+    />
+    <button class="search-btn" id="search-btn" @click="search">搜索</button>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    insert(e) {
+      this.$store.commit("setSearchValue", e.target.value);
+    },
+    search() {
+      this.$store.dispatch("searchStu");
+    }
+  },
+  computed: {
+    searchValue() {
+      return this.$store.state.searchValue;
+    }
+  }
+};
 </script>
 
 <style></style>
